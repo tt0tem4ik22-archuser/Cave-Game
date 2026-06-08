@@ -1,12 +1,12 @@
 clear
 
 usage() {
-	echo "Usage: ./run [-h show this menu] [-m start main.py] [-t start test.py]"
+	echo "Usage: ./run [-h show this menu] [-m start main.py] [-t start test.py] [-i test inventory] "
 	exit 1
 }
 
 
-while getopts "hmt" opt; do
+while getopts "hmti" opt; do
 	case ${opt} in
 		h)
 			usage
@@ -16,6 +16,9 @@ while getopts "hmt" opt; do
 			;;
 		t)
 			python3 test.py
+			;;
+		i)
+			python3 inventory.py
 			;;
 		*)
 			usage
