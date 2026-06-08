@@ -18,7 +18,7 @@ from webbrowser import open as webopen
 from random import randint as rni, choice
 
 # Project files
-import inventory
+# import inventory
 import generation
 from ProjectResources import *
 from controls import *
@@ -31,12 +31,12 @@ saved_coord = (0,0,0)
 debug = False
 game_going = False
 
+current_texture = blocks_textures["grass"]
+
 app = Ursina(title="Cave Game", use_ingame_console=debug, borderless=False, fullscreen=False, icon="assets/textures/icon.ico", development_mode=debug)
 window.fps_counter.enabled = True  
 
 Sky(color=color.hex("#3BA5FF"), texture=None)
-
-
 
 
 class CurrentBlock(Entity):
@@ -264,7 +264,6 @@ def input(key):
                 close_game()
     
 
-
 def save_world():
     global voxel_list
     try:
@@ -373,60 +372,7 @@ def open_website():
     webopen("https://tt0tem4ik22.itch.io/", new=2)
 
 
-def back_to_main_menu():
-    global back_button, single_start_button, exit_button, open_website_button, pre_multiplayer_game
-    single_start_button = Button(
-        text="Start Singleplayer Game",
-        color = color.hex("#808080"),
-        highlight_color = color.hex("#666666"),
-        scale=(0.4, 0.1),
-        origin_y = -1,
-        )
-    single_start_button.on_click = start_single_game
-    exit_button = Button(
-        text="Exit",
-        color = color.hex("#808080"),
-        highlight_color = color.hex("#666666"),
-        scale = (0.4, 0.1),
-        origin_y = 1.4,
-        )
-    exit_button.on_click = close_game
-    open_website_button = Button(
-        text="Open website",
-        color = color.hex("#808080"),
-        highlight_color = color.hex("#666666"),
-        scale = (0.4, 0.1),
-        origin_y = 4,
-        origin_x = 1.85
-        )
-    open_website_button.on_click = open_website
-    pre_multiplayer_button = Button(
-        text="Start Multiplayer Game",
-        color = color.hex("#808080"),
-        highlight_color = color.hex("#666666"),
-        scale = (0.4, 0.1),
-        origin_y = 0.2, 
-        )
-    pre_multiplayer_button.on_click = pre_multiplayer_game
-    destroy(back_button)
-
-
 def pre_multiplayer_game():
-    # global back_button, pre_multiplayer_button
-    
-    # back_button = Button(
-    #     text="Back",
-    #     color = color.hex("#808080"),
-    #     highlight_color = color.hex("#666666"),
-    #     scale = (0.4, 0.1),
-    #     origin_y = 1.4, 
-    #     )
-    # back_button.on_click = back_to_main_menu
-
-    # destroy(single_start_button)
-    # destroy(exit_button)
-    # destroy(open_website_button)
-    # destroy(pre_multiplayer_button)
     multiplayer_unavaiable = Text("Multiplayer is unavaiable right now", font=nunito, scale=2.5, origin=(0,0), position=(0,-0.35), color=color.rgb(230,230,230))
     multiplayer_unavaiable.appear(speed=.01)
     multiplayer_unavaiable.fade_out(delay=3, duration=1, curve=curve.linear)
