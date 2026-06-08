@@ -1,15 +1,16 @@
-from ursina import load_texture, load_model
+from ursina import load_texture, load_model, Audio
+from random import randint as rni
 
 
+# models
 sword_model = load_model("assets/models/diamond_sword.obj")
 player_stand_model = load_model("assets/models/player_stand.obj")
 player_sit_model = load_model("assets/models/player_sit.obj")
 
+#textures
 cursor_texture = load_texture("assets/textures/cursor.png")
 model_texture = load_texture("assets/textures/models_texture.png")
 none_texture = load_texture("no texture found.fuckit")
-
-
 blocks = [
     "stone",
     "weathered copper block",
@@ -126,8 +127,24 @@ blocks = [
     "copper ore",
     "cracked nether bricks"
 ]
-
-
 blocks_textures = {}
 for block in blocks:
-    blocks_textures[block] = load_texture(f"assets/textures/blocks/{block}.png")
+    blocks_textures[block] = f"assets/textures/blocks/{block}.png"
+
+#sounds
+teleport_sound = Audio("assets/sounds/teleport.mp3", loop=False, autoplay = False)
+water_sound = Audio("assets/sounds/blocks/water/water{0}.mp3".format(rni(1,2)), loop=False, autoplay=False)
+lava_sound = Audio("assets/sounds/blocks/lava/lava{0}.mp3".format(rni(1,2)), loop=False, autoplay=False)
+stone_sound = Audio("assets/sounds/blocks/stone/stone{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
+wood_sound = Audio("assets/sounds/blocks/wood/wood{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
+dirt_sound = Audio("assets/sounds/blocks/dirt/dirt{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
+glass_sound = Audio("assets/sounds/blocks/glass.mp3", loop=False, autoplay = False)
+gravel_sound = Audio("assets/sounds/blocks/gravel/gravel{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
+moss_sound = Audio("assets/sounds/blocks/moss/moss{0}.ogg".format(rni(1,5)), loop=False, autoplay = False)
+amethyst_sound = Audio("assets/sounds/blocks/amethyst/amethyst{0}.ogg".format(rni(1,2)), loop=False, autoplay = False)
+sand_sound = Audio("assets/sounds/blocks/sand/sand{0}.mp3".format(rni(1,4)), loop=False, autoplay = False)
+music = Audio("assets/sounds/music/music_({0}).mp3".format(rni(0,42)), loop=False, autoplay = False, volume=1)
+menu_music = Audio("assets/sounds/music/menu_({0}).mp3".format(rni(0,4)), loop=False, autoplay = True)
+
+#font
+nunito = "assets/fonts/Nunito.ttf"

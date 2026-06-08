@@ -3,6 +3,7 @@
 # By TT0tem4ik22
 
 
+
 from os import system
 
 from ursina import *
@@ -19,9 +20,12 @@ from shutil import rmtree
 from webbrowser import open as webopen
 
 from random import randint as rni, choice
+
 # Project files
 import inventory
 import generation
+from ProjectResources import *
+
 
 terrain = Entity(model=None, texture=None)
 voxel_list = []
@@ -54,33 +58,6 @@ time_delta = 0
 
 app = Ursina(title="Cave Game", use_ingame_console=debug, borderless=False, fullscreen=False, icon="assets/textures/icon.ico", development_mode=debug)
 window.fps_counter.enabled = True  
-
-from ProjectResources import *
-
-blocks = ["stone", "weathered copper block", "crimson wood", "dark oak vertical", "birch vertical", "acacia vertical", "crimson vertical", "mangrove vertical", "spruce vertical", "warped vertical", "jungle vertical", "dark oak horisontal", "birch horisontal", "acacia horisontal", "crimson horisontal", "mangrove horisontal", "spruce horisontal", "warped horisontal", "jungle horisontal", "flowering azalea leaves", "dark oak wood", "birch wood", "acacia wood", "crismon wood", "jungle wood", "mangrove wood", "spruce wood", "warped wood", "quartz bricks", "crimson wart", "warped wart", "birch leaves", "spruce leaves", "jungle leaves", "mangrove leaves", "azalea leaves", "acacia leaves", "dark oak leaves", "deepslate coal ore", "deepslate copper ore", "deepslate iron ore", "deepslate gold ore", "deepslate lapis ore", "deepslate redstone ore", "deepslate emerald ore", "deepslate diamond ore",  "deepslate bricks", "cracked deepslate tiles",  "cracked deepslate bricks",  "deepslate",  "oak wood", "magma", "purpur block", "amethyst", "dirt", "spawner", "sponge", "oak vertical", "water", "stone brick", "diorite smooth", "andesite smooth", "granite smooth", "nether gold ore", "red nether bricks", "redstone ore", "redstone block", "sand", "red sand",  "oxidized copper block", "quartz ore", "nether bricks", "netherite block", "oak leaves", "moss", "mossy stone bricks", "mossy cobblestone",  "oak horisontal", "lava", "lapis block", "lapis ore", "obsidian", "quartz", "netherrack", "iron ore", "iron ore block", "iron block", "grass", "granite", "gravel", "glass",  "endstone", "exposed copper block", "gold ore block", "gold block", "gold ore", "endstone bricks", "emerald block", "emerald ore",  "diorite", "crying obsidian",  "diamond block", "diamond ore", "andesite", "bedrock", "chiseled nether bricks", "bricks", "coal block", "coal ore", "cobblestone", "copper block", "copper ore block", "copper ore", "cracked nether bricks"]
-blocks_textures = {}
-for block in blocks:
-    blocks_textures[block] = load_texture(f"assets/textures/blocks/{block}.png")
-#sounds
-teleport_sound = Audio("assets/sounds/teleport.mp3", loop=False, autoplay = False)
-water_sound = Audio("assets/sounds/blocks/water/water{0}.mp3".format(rni(1,2)), loop=False, autoplay=False)
-lava_sound = Audio("assets/sounds/blocks/lava/lava{0}.mp3".format(rni(1,2)), loop=False, autoplay=False)
-stone_sound = Audio("assets/sounds/blocks/stone/stone{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
-wood_sound = Audio("assets/sounds/blocks/wood/wood{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
-dirt_sound = Audio("assets/sounds/blocks/dirt/dirt{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
-glass_sound = Audio("assets/sounds/blocks/glass.mp3", loop=False, autoplay = False)
-gravel_sound = Audio("assets/sounds/blocks/gravel/gravel{0}.ogg".format(rni(1,4)), loop=False, autoplay = False)
-moss_sound = Audio("assets/sounds/blocks/moss/moss{0}.ogg".format(rni(1,5)), loop=False, autoplay = False)
-amethyst_sound = Audio("assets/sounds/blocks/amethyst/amethyst{0}.ogg".format(rni(1,2)), loop=False, autoplay = False)
-sand_sound = Audio("assets/sounds/blocks/sand/sand{0}.mp3".format(rni(1,4)), loop=False, autoplay = False)
-music = Audio("assets/sounds/music/music_({0}).mp3".format(rni(0,42)), loop=False, autoplay = False, volume=1)
-menu_music = Audio("assets/sounds/music/menu_({0}).mp3".format(rni(0,4)), loop=False, autoplay = True)
-#models
-sword_model = load_model("assets/models/diamond_sword.obj")
-player_stand_model = load_model("assets/models/player_stand.obj")
-player_sit_model = load_model("assets/models/player_sit.obj")
-#font
-nunito = "assets/fonts/Nunito.ttf"
 
 Sky(color=color.hex("#3BA5FF"), texture=None)
 
@@ -365,7 +342,7 @@ def start_single_game(advanced=not debug):
         seed = rni(0, 10000000000000)
     
 
-    generated_terrain = generation.genTerrain(seed=seed, advanced=not debug)
+    generated_terrain = generation.genTerrain(seed=seed, terrain_width=terrain_width, advanced=not debug)
     start_player_y = 7
     for block in generated_terrain:
         voxel = Voxel(texture=block[3], position=(block[0], int(block[1]), block[2]))
