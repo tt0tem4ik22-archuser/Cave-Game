@@ -31,34 +31,12 @@ saved_coord = (0,0,0)
 debug = False
 game_going = False
 
-input_seed = 0
-
-# controls
-BREAK = "left mouse down"
-SET = "right mouse down"
-EXIT = "escape"
-RTP = "g"
-NOCLIP = "v"
-SIT = "left shift"
-SPRINT = "left control"
-SAVE_COORD = "z"
-LOAD_COORD = "x"
-INV = "e"
-INV_CHOOSE = "left mouse up"
-FIRST_THIRD_PERSON = "f"
-SAVE_LEVEL = "p"
-LOAD_LEVEL = "l"
-SHOW_CONTROLS = "m"
-PLANT_TREE = "n"
-
-time_delta = 0
-
 app = Ursina(title="Cave Game", use_ingame_console=debug, borderless=False, fullscreen=False, icon="assets/textures/icon.ico", development_mode=debug)
 window.fps_counter.enabled = True  
 
 Sky(color=color.hex("#3BA5FF"), texture=None)
 
-current_texture = blocks_textures["grass"]
+
 
 
 class CurrentBlock(Entity):
@@ -105,7 +83,7 @@ class Voxel(Button):
         
 
     def input(self, key):
-        global current_texture, saved_coord, saved_rot, load_texture, amethyst_sound, moss_sound, water_sound, dirt_sound, sand_sound, stone_sound, wood_sound, voxel_list, gravel_sound, player, time_delta
+        global current_texture, saved_coord, saved_rot, load_texture, amethyst_sound, moss_sound, water_sound, dirt_sound, sand_sound, stone_sound, wood_sound, voxel_list, gravel_sound, player 
         if self.hovered:
             if key == SET and not inventoryHandler.visible and not current_texture == none_texture and distance(self, player) <= 4:
                 voxel = Voxel(position=self.position+mouse.normal, texture=current_texture)
@@ -165,7 +143,7 @@ class Voxel(Button):
 
     
 def update():
-    global current_texture, player, leaves_texture, music, dirt_sound, menu_music, time_delta, HB, hand
+    global current_texture, player, leaves_texture, music, dirt_sound, menu_music, HB, hand
 
     #player.visible = not hand.visible
 
@@ -224,7 +202,6 @@ def update():
         PlayerPos.text = """X: {0}\nY: {1}\nZ: {2}\nFPS: {3}\n{4} blocks""".format(round(player.x, 2), round(player.y-4.5+53, 2), round(player.z, 2), round(1/time.dt), len(voxel_list))
         if len(voxel_list) == 1:
             print(voxel_list)
-        time_delta += 1
             
   
 def input(key):    

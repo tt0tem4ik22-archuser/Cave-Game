@@ -64,6 +64,7 @@ def InitializeInvintory():
                 texture = blocks[inv_counter]
                 section = InventorySection((x/2-4,y/2-4), blocks_textures[blocks[inv_counter]])
                 inv_counter += 1
+                current_texture = blocks_textures["grass"]
     curr_text = Text("Current texture", font=nunito, scale=2.5, origin=(0,0), position=(0,0), color=color.rgb(230,230,230))
     curr_text.visible = False
     inventory.visible = False
