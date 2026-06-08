@@ -1,6 +1,12 @@
-from ursina import Button, Entity, color
-from ProjectResources import blocks_textures
+from ursina import Button, Entity, color, camera, Text
+from ProjectResources import blocks, blocks_textures
+from controls import *
 
+
+current_texture = blocks_textures["grass"]
+inv_opened_times = 0
+curr_text = Text("")
+game_going = True
 
 class InventorySection(Button):
     def __init__(self, position, texture):
@@ -22,7 +28,7 @@ class InventorySection(Button):
 
 
 class InventoryHandler(Entity):
-    def __init__(self, parent):
+    def __init__(self, parent=camera.ui):
         super().__init__(
             parent=parent,
             model="quad",
@@ -30,7 +36,7 @@ class InventoryHandler(Entity):
             color=color.black
         )
     def input(self, key):
-        global inv_opened_times, voxel, curr_block, current_texture, blocks_textures
+        global inv_opened_times
         if game_going:
             if key == INV:
                 inv_opened_times += 1
@@ -64,7 +70,7 @@ def InitializeInvintory():
                 texture = blocks[inv_counter]
                 section = InventorySection((x/2-4,y/2-4), blocks_textures[blocks[inv_counter]])
                 inv_counter += 1
-                
+
     curr_text = Text("Current texture", font=nunito, scale=2.5, origin=(0,0), position=(0,0), color=color.rgb(230,230,230))
     curr_text.visible = False
     inventory.visible = False

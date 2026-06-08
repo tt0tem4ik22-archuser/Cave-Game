@@ -1,6 +1,11 @@
 from ursina import load_texture, load_model, Audio
 from random import randint as rni
 
+#shaders
+from ursina.shaders import lit_with_shadows_shader
+from ursina.shaders import camera_contrast_shader
+from ursina.lights import DirectionalLight
+
 
 # models
 sword_model = load_model("assets/models/diamond_sword.obj")
@@ -9,7 +14,7 @@ player_sit_model = load_model("assets/models/player_sit.obj")
 
 #textures
 cursor_texture = load_texture("assets/textures/cursor.png")
-model_texture = load_texture("assets/textures/models_texture.png")
+models_texture = load_texture("assets/textures/models_texture.png")
 none_texture = load_texture("no texture found.fuckit")
 blocks = [
     "stone",

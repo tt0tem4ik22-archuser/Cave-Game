@@ -2,6 +2,7 @@ from numpy import floor
 from perlin_noise import PerlinNoise
 from random import randint as rni, choice, seed as sd
 
+terrain_width = 1
 
 def createTree(pos, type):
     if type in ["oak", "birch"]:

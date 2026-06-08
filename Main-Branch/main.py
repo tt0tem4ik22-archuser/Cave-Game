@@ -4,12 +4,11 @@
 
 
 from ursina import *
-from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.prefabs.health_bar import HealthBar
-from ursina.shaders import lit_with_shadows_shader
-from ursina.shaders import camera_contrast_shader
-from ursina.lights import DirectionalLight
+
 from ursinanetworking import * #for multiplayer when i'm gonna do it
+
+import tkinter as tk
 
 from os import system
 import json
@@ -17,16 +16,17 @@ from shutil import rmtree
 from webbrowser import open as webopen
 from random import randint as rni, choice
 
-# Project files
-# import inventory
-import generation
+# Project packages
 from ProjectResources import *
 from controls import *
+import UI
+import inventory
+import generation
+from player import CreatePlayer
 
 
 terrain = Entity(model=None, texture=None)
 voxel_list = []
-inv_opened_times = 0
 saved_coord = (0,0,0)
 debug = False
 game_going = False
@@ -37,32 +37,6 @@ app = Ursina(title="Cave Game", use_ingame_console=debug, borderless=False, full
 window.fps_counter.enabled = True  
 
 Sky(color=color.hex("#3BA5FF"), texture=None)
-
-
-class CurrentBlock(Entity):
-    def __init__(self, texture):
-        super().__init__(
-                parent=camera.ui, 
-                model="quad",
-                scale=(0.1,0.1),
-                color=color.rgb(230,230,230),
-                texture=texture,
-                position=Vec2(-0.75, -0.35)
-            ) 
-    def update(self):
-        self.texture = current_texture
-
-
-class Hand(Entity):
-    def __init__(self):
-        super().__init__(
-                parent=camera.ui,
-                model=sword_model,
-                scale=(0.2,0.4),
-                texture=model_texture,
-                rotation=Vec3(15, -310, -45),
-                position=Vec2(0.65, -0.35)
-        )
 
     
 class Voxel(Button):
@@ -312,7 +286,7 @@ def start_single_game(advanced=not debug):
     if seed_input_field.text != "":
         seed = int(seed_input_field.text)
     else:
-        seed = rni(0, 10000000000000)
+        seed = rni(0, 1000000)
     
 
     generated_terrain = generation.genTerrain(seed=seed, terrain_width=terrain_width, advanced=not debug)
@@ -320,26 +294,17 @@ def start_single_game(advanced=not debug):
     for block in generated_terrain:
         voxel = Voxel(texture=block[3], position=(block[0], int(block[1]), block[2]))
 
-
-    player = FirstPersonController(position=(terrain_width//2,start_player_y,terrain_width//2), model=player_stand_model, scale=0.65, texture=model_texture, shader=lit_with_shadows_shader)
-    player.jump_height = 1.5
-    player.mouse_sensitivity = Vec2(120, 120)
-    player.gravity = .5  
-    camera.fov = 120
-    camera.clip_plane_far = 160
-
+    CreatePlayer()
+    
     scene.fog_density = (10,95)
     scene.fog_color = color.white
 
-    curr_block = CurrentBlock(texture=current_texture)
-    hand = Hand()
+    curr_block = UI.CurrentBlock(texture=current_texture)
+    hand = UI.Hand()
 
-    player.cursor.texture=cursor_texture
-    player.cursor.scale=0.08
-    player.cursor.rotation = 0
-    player.cursor.color=color.rgb(200,200,200) 
+    
 
-    inventoryHandler = inventory.InventoryHandler(parent=camera.ui)
+    inventoryHandler = inventory.InventoryHandler()
 
     PlayerPos = Text("", color=color.rgb(211,211,211), position=Vec2(-0.85, 0.45), font=nunito)
     ControlHelp = Text(controls, color=color.rgb(211,211,211), position=Vec2(0.25, 0.5), font=nunito)
@@ -353,6 +318,7 @@ def start_single_game(advanced=not debug):
 
     sun = DirectionalLight(shadow_map_resolution=(2048,2048))
     sun.look_at(Vec3(1,-1,-1))
+
     if debug:
         sun._light.show_frustum()
     
@@ -418,6 +384,8 @@ Space: jump
 
 {SHOW_CONTROLS}: Open this text again""".format(terrain_width)
 
+#Menu.InitMainMenu()
+
 seed_text = Text("Input seed\nSingleplayer only", parent=camera.ui, font=nunito, color=color.white, scale=1, origin=(0, 2), position=(.5, .26))
 seed_input_field = InputField(
     y=.1,
@@ -444,7 +412,7 @@ exit_button = Button(
     )
 
 open_website_button = Button(
-    text="Open website",
+    text="Open my itch.io",
     color = color.hex("#808080"),
     highlight_color = color.hex("#666666"),
     scale = (0.4, 0.1),
@@ -462,8 +430,6 @@ pre_multiplayer_button = Button(
     on_click = pre_multiplayer_game
     )
 logo = Text("Cave Game", parent=camera.ui, font=nunito, color=color.white, scale=5, origin=(0, -2))
-
-camera.shader = camera_contrast_shader
 
 app.run()
 
