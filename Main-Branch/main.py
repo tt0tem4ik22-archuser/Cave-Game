@@ -389,7 +389,7 @@ def start_single_game(advanced=not debug):
     player.cursor.rotation = 0
     player.cursor.color=color.rgb(200,200,200) 
 
-    inventoryHandler = inventory.InventoryHandler()
+    inventoryHandler = inventory.InventoryHandler(parent=camera.ui)
 
     PlayerPos = Text("", color=color.rgb(211,211,211), position=Vec2(-0.85, 0.45), font=nunito)
     ControlHelp = Text(controls, color=color.rgb(211,211,211), position=Vec2(0.25, 0.5), font=nunito)

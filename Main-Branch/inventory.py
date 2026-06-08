@@ -1,4 +1,5 @@
-from ursina import Button, Entity
+from ursina import Button, Entity, color
+from ProjectResources import blocks_textures
 
 
 class InventorySection(Button):
@@ -21,7 +22,7 @@ class InventorySection(Button):
 
 
 class InventoryHandler(Entity):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__(
             parent=parent,
             model="quad",
@@ -49,7 +50,7 @@ class InventoryHandler(Entity):
                 player.mouse_sensitivity = Vec2(120,120)
 
     def update(self):
-        if inventory.visible == True:
+        if self.visible == True:
             curr_text.text = [key for key, value in blocks_textures.items() if value == current_texture][0].capitalize()
 
 
