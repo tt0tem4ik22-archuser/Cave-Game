@@ -3,7 +3,8 @@ from perlin_noise import PerlinNoise
 from random import randint as rni, choice
 
 
-def create_tree(pos, type):
+
+def createTree(pos, type):
     if type in ["oak", "birch"]:
         for i in range(5):
             output.append([pos[0], pos[1]+i+1, pos[2], blocks_textures[f"{type} vertical"]])
@@ -35,22 +36,21 @@ def create_tree(pos, type):
         output.append([pos[0]+1, pos[1]+6, pos[2], blocks_textures[f"{type} leaves"]])
         output.append([pos[0]+1, pos[1]+5, pos[2], blocks_textures[f"{type} leaves"]])
         output.append([pos[0]+1, pos[1]+4, pos[2], blocks_textures[f"{type} leaves"]])
-        
-        voxel = Voxel(position=(pos[0]+2,pos[1]+6,pos[2]), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+2,pos[1]+5,pos[2]), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+2,pos[1]+4,pos[2]), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+1,pos[1]+4,pos[2]+1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+1,pos[1]+5,pos[2]+1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+1,pos[1]+6,pos[2]+1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+1,pos[1]+4,pos[2]-1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+1,pos[1]+5,pos[2]-1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]+1,pos[1]+6,pos[2]-1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]-1,pos[1]+4,pos[2]+1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]-1,pos[1]+5,pos[2]+1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]-1,pos[1]+6,pos[2]+1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]-1,pos[1]+4,pos[2]-1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]-1,pos[1]+5,pos[2]-1), texture=blocks_textures[f"{type} leaves"])
-        voxel = Voxel(position=(pos[0]-1,pos[1]+6,pos[2]-1), texture=blocks_textures[f"{type} leaves"])
+        output.append([pos[0]+2, pos[1]+6, pos[2], blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+2, pos[1]+5, pos[2], blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+2, pos[1]+4, pos[2], blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+1, pos[1]+4, pos[2]+1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+1, pos[1]+5, pos[2]+1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+1, pos[1]+6, pos[2]+1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+1, pos[1]+4, pos[2]-1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+1, pos[1]+5, pos[2]-1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]+1, pos[1]+6, pos[2]-1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]-1, pos[1]+4, pos[2]+1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]-1, pos[1]+5, pos[2]+1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]-1, pos[1]+6, pos[2]+1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]-1, pos[1]+4, pos[2]-1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]-1, pos[1]+5, pos[2]-1, blocks_textures[f"{type} leaves"]])
+        output.append([pos[0]-1, pos[1]+6, pos[2]-1, blocks_textures[f"{type} leaves"]])
 
 
 
@@ -80,7 +80,7 @@ def genTerrain(seed, advanced, terrain_width, octaves=2, amplitude=6, period=48)
                 block = rni(0,1000)
                 if j <= 50:
                     if block <= 820:
-                        voxel = Voxel(texture=blocks_textures["stone"], position=(x,int(y+2-j),z))
+                        output.append(x, y+2-j, z, blocks_textures["stone"])
                     if block > 820 and block <= 860:
                         voxel = Voxel(texture=blocks_textures["copper ore"], position=(x,int(y+2-j),z))
                     if block > 860 and block <= 900:

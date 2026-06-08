@@ -3,9 +3,6 @@
 # By TT0tem4ik22
 
 
-
-from os import system
-
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.prefabs.health_bar import HealthBar
@@ -14,17 +11,17 @@ from ursina.shaders import camera_contrast_shader
 from ursina.lights import DirectionalLight
 from ursinanetworking import * #for multiplayer when i'm gonna do it
 
+from os import system
 import json
 from shutil import rmtree
-
 from webbrowser import open as webopen
-
 from random import randint as rni, choice
 
 # Project files
 import inventory
 import generation
 from ProjectResources import *
+from controls import *
 
 
 terrain = Entity(model=None, texture=None)
@@ -279,7 +276,7 @@ def input(key):
         if key == PLANT_TREE:
             tree_type = choice(["oak", "birch"])
             print(f"PLANTED TREE on {player.position} tree_type {tree_type}")
-            tree_cord = generation.create_tree(player.position, tree_type)
+            tree_cord = generation.createTree(player.position, tree_type)
             for block in tree_cord:
                 voxel = Voxel(texture=block[4], position=(block[0], block[1], block[2]))
 
