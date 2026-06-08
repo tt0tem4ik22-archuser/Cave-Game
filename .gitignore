@@ -1,3 +1,4 @@
 run
 models_compressed
 *.pyc
+/Main-Branch/__pycache__
