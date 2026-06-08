@@ -131,3 +131,4 @@ def create_tree(pos, type):
 def genTerrain(seed, advanced, octaves=2, amplitude=6, period=48):
 	return [[0,0,0,"grass"]]
 
+print("Я НЕ ЗАКОНЧИЛ ОТДЕЛЕНИЕ ГЕНЕРАЦИИ, ТАК ЧТО ДАБЫ НЕ ВЫЛЕЗАЛИ ОШИБКИ ГЕНЕРИРУЕТСЯ ТОЛЬКО 1 БЛОК!!!!!")
