@@ -1,4 +1,4 @@
-from ursina import Button, Entity, color, camera, Text
+from ursina import Button, Entity, color, camera, Text, mouse
 from ProjectResources import blocks, blocks_textures
 from controls import *
 
@@ -44,16 +44,12 @@ class InventoryHandler(Entity):
             if inv_opened_times % 2 == 1:
                 curr_text.visible = True
                 self.visible = True 
-                player.cursor.visible = False
                 mouse.locked = False
-                player.mouse_sensitivity = Vec2(0,0)
             else:
                 curr_text.visible = False
                 self.visible = False
-                player.cursor.visible = True
                 mouse.locked = True
                 mouse.position = (0,0)
-                player.mouse_sensitivity = Vec2(120,120)
 
     def update(self):
         if self.visible == True:

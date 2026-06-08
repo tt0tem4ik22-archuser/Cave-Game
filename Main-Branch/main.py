@@ -2,18 +2,13 @@
 #
 # By TT0tem4ik22
 
-
 from ursina import *
-from ursina.prefabs.health_bar import HealthBar
-
+from ursina.prefabs.first_person_controller import FirstPersonController
 from ursinanetworking import * #for multiplayer when i'm gonna do it
-
-import tkinter as tk
 
 from os import system
 import json
 from shutil import rmtree
-from webbrowser import open as webopen
 from random import randint as rni, choice
 
 # Project packages
@@ -22,21 +17,12 @@ from controls import *
 import UI
 import inventory
 import generation
-from player import CreatePlayer
-
-
-terrain = Entity(model=None, texture=None)
-voxel_list = []
-saved_coord = (0,0,0)
-debug = False
-game_going = False
-
-current_texture = blocks_textures["grass"]
+from SaveLoad import *
+from ProjectVariables import current_texture
 
 app = Ursina(title="Cave Game", use_ingame_console=debug, borderless=False, fullscreen=False, icon="assets/textures/icon.ico", development_mode=debug)
 window.fps_counter.enabled = True  
-
-Sky(color=color.hex("#3BA5FF"), texture=None)
+window.color=color.hex("#3BA5FF")
 
     
 class Voxel(Button):
@@ -53,13 +39,13 @@ class Voxel(Button):
             default_shader=lit_with_shadows_shader,
             shader=lit_with_shadows_shader
         )
-        voxel_list.insert(len(voxel_list), {'texture': str(texture), 'x': position[0], 'y': position[1], 'z': position[2]})
+        voxel_list.append({'texture': str(self.texture), 'x': self.position.x, 'y': self.position.y, 'z': self.position.z})
         
 
     def input(self, key):
         global current_texture, saved_coord, saved_rot, load_texture, amethyst_sound, moss_sound, water_sound, dirt_sound, sand_sound, stone_sound, wood_sound, voxel_list, gravel_sound, player 
         if self.hovered:
-            if key == SET and not inventoryHandler.visible and not current_texture == none_texture and distance(self, player) <= 4:
+            if key == SET and not inventoryHandler.visible and not current_texture == none_texture and distance(self, player) <= 8:
                 voxel = Voxel(position=self.position+mouse.normal, texture=current_texture)
                 if voxel.texture == blocks_textures["deepslate gold ore"] or voxel.texture == blocks_textures["deepslate iron ore"] or voxel.texture == blocks_textures["deepslate emerald ore"] or voxel.texture == blocks_textures["deepslate diamond ore"] or voxel.texture == blocks_textures["deepslate lapis ore"] or voxel.texture == blocks_textures["deepslate redstone ore"] or voxel.texture == blocks_textures["deepslate copper ore"] or voxel.texture == blocks_textures["deepslate coal ore"] or voxel.texture == blocks_textures["cracked deepslate tiles"] or voxel.texture == blocks_textures["cracked deepslate bricks"] or voxel.texture == blocks_textures["deepslate bricks"] or voxel.texture == blocks_textures["deepslate"] or voxel.texture == blocks_textures["quartz bricks"] or voxel.texture == blocks_textures["quartz"] or voxel.texture == blocks_textures["purpur block"] or voxel.texture == blocks_textures["magma"] or voxel.texture == blocks_textures["obsidian"] or voxel.texture == blocks_textures["red nether bricks"] or voxel.texture == blocks_textures["endstone"] or voxel.texture == blocks_textures["endstone bricks"] or voxel.texture == blocks_textures["spawner"] or voxel.texture == blocks_textures["mossy stone bricks"] or voxel.texture == blocks_textures["bedrock"] or voxel.texture == blocks_textures["netherite block"] or voxel.texture == blocks_textures["chiseled nether bricks"] or voxel.texture == blocks_textures["cracked nether bricks"] or voxel.texture == blocks_textures["nether bricks"] or voxel.texture == blocks_textures["netherrack"] or voxel.texture == blocks_textures["crying obsidian"] or voxel.texture == blocks_textures["bricks"] or voxel.texture == blocks_textures["diamond block"] or voxel.texture == blocks_textures["emerald block"] or voxel.texture == blocks_textures["iron block"] or voxel.texture == blocks_textures["gold block"] or voxel.texture == blocks_textures["lapis block"] or voxel.texture == blocks_textures["redstone block"] or voxel.texture == blocks_textures["coal block"] or voxel.texture == blocks_textures["copper block"] or voxel.texture == blocks_textures["diamond ore"] or voxel.texture == blocks_textures["emerald ore"] or voxel.texture == blocks_textures["iron ore"] or voxel.texture == blocks_textures["gold ore"] or voxel.texture == blocks_textures["lapis ore"] or voxel.texture == blocks_textures["redstone ore"] or voxel.texture == blocks_textures["coal ore"] or voxel.texture == blocks_textures["copper ore"] or voxel.texture == blocks_textures["stone"] or voxel.texture == blocks_textures["cobblestone"] or voxel.texture == blocks_textures["glass"] or voxel.texture == blocks_textures["stone brick"] or voxel.texture == blocks_textures["nether gold ore"] or voxel.texture == blocks_textures["quartz ore"] or voxel.texture == blocks_textures["copper ore block"] or voxel.texture == blocks_textures["iron ore block"] or voxel.texture == blocks_textures["gold ore block"] or voxel.texture == blocks_textures["weathered copper block"] or voxel.texture == blocks_textures["exposed copper block"] or voxel.texture == blocks_textures["oxidized copper block"] or voxel.texture == blocks_textures["mossy cobblestone"] or voxel.texture == blocks_textures["andesite"] or voxel.texture == blocks_textures["andesite smooth"] or voxel.texture == blocks_textures["diorite"] or voxel.texture == blocks_textures["diorite smooth"] or voxel.texture == blocks_textures["granite"] or voxel.texture == blocks_textures["granite smooth"]:
                     stone_sound.play()
@@ -87,7 +73,7 @@ class Voxel(Button):
                     water_sound = Audio("assets/sounds/blocks/water/water{0}.mp3".format(rni(1,2)), loop=False, autoplay=False)
                 voxel_list.append({'texture': str(voxel.texture), 'x': voxel.position.x, 'y': voxel.position.y, 'z': voxel.position.z})
               
-            if key == BREAK and not inventoryHandler.visible and not current_texture == none_texture and distance(self, player) <= 4:
+            if key == BREAK and not inventoryHandler.visible and not current_texture == none_texture and distance(self, player) <= 10:
                 if self.texture == blocks_textures["glass"]:
                     glass_sound.play()
                 if self.texture == blocks_textures["deepslate gold ore"] or self.texture == blocks_textures["deepslate iron ore"] or self.texture == blocks_textures["deepslate emerald ore"] or self.texture == blocks_textures["deepslate diamond ore"] or self.texture == blocks_textures["deepslate lapis ore"] or self.texture == blocks_textures["deepslate redstone ore"] or self.texture == blocks_textures["deepslate copper ore"] or self.texture == blocks_textures["deepslate coal ore"] or self.texture == blocks_textures["cracked deepslate tiles"] or self.texture == blocks_textures["cracked deepslate bricks"] or self.texture == blocks_textures["deepslate bricks"] or self.texture == blocks_textures["deepslate"] or self.texture == blocks_textures["quartz bricks"] or self.texture == blocks_textures["quartz"] or self.texture == blocks_textures["purpur block"] or self.texture == blocks_textures["magma"] or self.texture == blocks_textures["obsidian"] or self.texture == blocks_textures["red nether bricks"] or self.texture == blocks_textures["endstone"] or self.texture == blocks_textures["endstone bricks"] or self.texture == blocks_textures["spawner"] or self.texture == blocks_textures["mossy stone bricks"] or self.texture == blocks_textures["bedrock"] or self.texture == blocks_textures["netherite block"] or self.texture == blocks_textures["chiseled nether bricks"] or self.texture == blocks_textures["cracked nether bricks"] or self.texture == blocks_textures["nether bricks"] or self.texture == blocks_textures["netherrack"] or self.texture == blocks_textures["crying obsidian"] or self.texture == blocks_textures["bricks"] or self.texture == blocks_textures["diamond block"] or self.texture == blocks_textures["emerald block"] or self.texture == blocks_textures["iron block"] or self.texture == blocks_textures["gold block"] or self.texture == blocks_textures["lapis block"] or self.texture == blocks_textures["redstone block"] or self.texture == blocks_textures["coal block"] or self.texture == blocks_textures["copper block"] or self.texture == blocks_textures["diamond ore"] or self.texture == blocks_textures["emerald ore"] or self.texture == blocks_textures["iron ore"] or self.texture == blocks_textures["gold ore"] or self.texture == blocks_textures["lapis ore"] or self.texture == blocks_textures["redstone ore"] or self.texture == blocks_textures["coal ore"] or self.texture == blocks_textures["copper ore"] or self.texture == blocks_textures["stone"] or self.texture == blocks_textures["cobblestone"] or self.texture == blocks_textures["glass"] or self.texture == blocks_textures["stone brick"] or self.texture == blocks_textures["nether gold ore"] or self.texture == blocks_textures["quartz ore"] or self.texture == blocks_textures["copper ore block"] or self.texture == blocks_textures["iron ore block"] or self.texture == blocks_textures["gold ore block"] or self.texture == blocks_textures["weathered copper block"] or self.texture == blocks_textures["exposed copper block"] or self.texture == blocks_textures["oxidized copper block"] or self.texture == blocks_textures["mossy cobblestone"] or self.texture == blocks_textures["andesite"] or self.texture == blocks_textures["andesite smooth"] or self.texture == blocks_textures["diorite"] or self.texture == blocks_textures["diorite smooth"] or self.texture == blocks_textures["granite"] or self.texture == blocks_textures["granite smooth"]:
@@ -112,20 +98,21 @@ class Voxel(Button):
                     moss_sound.play()
                     moss_sound = Audio("assets/sounds/blocks/moss/moss{0}.ogg".format(rni(1,5)), loop=False, autoplay = False)
 
-                voxel_list.remove({'texture': str(self.texture), 'x': self.position.x, 'y': self.position.y, 'z': self.position.z})
+               # voxel_list.remove({'texture': str(self.texture), 'x': self.position.x, 'y': self.position.y, 'z': self.position.z})
                 destroy(self)
 
     
 def update():
     global current_texture, player, leaves_texture, music, dirt_sound, menu_music, HB, hand
 
-    #player.visible = not hand.visible
+    
 
     if not game_going:
         if not menu_music.playing:
             menu_music = Audio("assets/sounds/music/menu_({0}).mp3".format(rni(0,4)), loop=False, autoplay = True)
 
     if game_going:
+        player.visible = not hand.visible
         HB.visible = True
         if not music.playing:
             music = Audio("assets/sounds/music/music_({0}).mp3".format(rni(0,42)), loop=False, autoplay = True, volume=1)
@@ -155,10 +142,10 @@ def update():
             hand.rotation = Vec3(10, -310, -45)
 
         if player.position.y <= -110:
-            player.position = (rni(0, terrain_width-1), 10, rni(0, terrain_width-1))
+            player.position = (rni(0, generation.terrain_width-1), 10, rni(0, generation.terrain_width-1))
             teleport_sound.play()
             player.grounded = True
-        Player_Raycast = raycast(origin=(player.x, player.y+player.height, player.z), direction=(0,0,0), distance=10, debug=debug, ignore=[player])
+        Player_Raycast = raycast(origin=(player.x, player.y+player.height, player.z), direction=(0,1,0), distance=10, debug=debug, ignore=[player])
         #player.y_animate()
         if Player_Raycast.hit:
             #player.start_fall()
@@ -238,79 +225,48 @@ def input(key):
                 close_game()
     
 
-def save_world():
-    global voxel_list
-    try:
-        with open('save.save', 'w+') as save:
-            save.truncate(0)
-            save.write(str(voxel_list))
-
-        saved_text = Text("Level saved succefully...", font=nunito, scale=3.5, origin=(0,0), position=(0,0.3), color=color.rgb(230,230,230))
-
-        saved_text.appear(speed=.05)
-        saved_text.fade_out(delay=0.75, duration=1, curve=curve.linear)
-    except:
-        saved_text = Text("Level could not be saved...", font=nunito, scale=3.5, origin=(0,0), position=(0,0.3), color=color.rgb(230,230,230))
-
-        saved_text.appear(speed=.05)
-        saved_text.fade_out(delay=0.75, duration=1, curve=curve.linear)
-
-
-def load_world():
-    global voxel_list 
-    try:
-        with open('save.save', 'r') as save:
-            voxel_list = json.load(save)
-            print(voxel_list)
-        """DESTROY ALL EXISTING voxel"""
-        for element in voxel_list:
-            texture_value = element.get('texture')
-            x_value = element.get('x')
-            y_value = element.get('y')
-            z_value = element.get('z')
-            voxel = Voxel(texture=load_texture(f"assets/textures/blocks/{texture_value}"), position=(int(x_value), int(y_value), (z_value)))
-
-        player.position=(0,10,0)
-        loaded_text = Text("Level loaded succefully...", font=nunito, scale=3.5, origin=(0,0), position=(0,0.3), color=color.rgb(230,230,230))
-        loaded_text.appear(speed=.05)
-        loaded_text.fade_out(delay=0.75, duration=1, curve=curve.linear)
-    except:
-        loaded_text = Text("Level could not be loaded...", font=nunito, scale=3.5, origin=(0,0), position=(0,0.3), color=color.rgb(230,230,230))
-        loaded_text.appear(speed=.05)
-        loaded_text.fade_out(delay=1.25, duration=1, curve=curve.linear)
-
-
-def start_single_game(advanced=not debug):
-    global game_going, player, PlayerPos, voxel, curr_block, hand, menu_music, seed, noise, terrain
-
+def start_single_game():
+    global game_going, player, PlayerPos, voxel, curr_block, hand, menu_music, seed, noise, inventoryHandler
+    print("getting seed")           
     if seed_input_field.text != "":
         seed = int(seed_input_field.text)
     else:
-        seed = rni(0, 1000000)
-    
+        seed = rni(1, 1000000)
 
-    generated_terrain = generation.genTerrain(seed=seed, terrain_width=terrain_width, advanced=not debug)
-    start_player_y = 7
+    print("Generating terrain")
+    generated_terrain = generation.genTerrain(seed=seed, advanced=not debug)
+    print(generated_terrain)
     for block in generated_terrain:
-        voxel = Voxel(texture=block[3], position=(block[0], int(block[1]), block[2]))
-
-    CreatePlayer()
+        voxel = Voxel(texture=blocks_textures[block[3]], position=(int(block[0]), int(block[1]), int(block[2])))
     
+    print("Creating player")
+    player = FirstPersonController(position=(generation.terrain_width//2, generation.start_player_y, generation.terrain_width//2), model=player_stand_model, scale=0.65, texture=models_texture)
+    player.jump_height = 1.5
+    player.mouse_sensitivity = Vec2(120, 120)
+    player.gravity = .5  
+    camera.fov = 120
+    camera.clip_plane_far = 160
+
+    print("Creating scene fog")
     scene.fog_density = (10,95)
     scene.fog_color = color.white
+
+    print("Changing cursor")
+    player.cursor.texture=cursor_texture
+    player.cursor.scale=0.08
+    player.cursor.rotation = 0
+    player.cursor.color=color.rgb(200,200,200) 
 
     curr_block = UI.CurrentBlock(texture=current_texture)
     hand = UI.Hand()
 
-    
-
     inventoryHandler = inventory.InventoryHandler()
 
     PlayerPos = Text("", color=color.rgb(211,211,211), position=Vec2(-0.85, 0.45), font=nunito)
-    ControlHelp = Text(controls, color=color.rgb(211,211,211), position=Vec2(0.25, 0.5), font=nunito)
+    ControlHelp = Text(controls_text, color=color.rgb(211,211,211), position=Vec2(0.25, 0.5), font=nunito)
 
     poweredby = Text('''CaveGame [By TT0tem4ik22]\npowered by Ursina\n\nSeed = {0}'''.format(seed), font=nunito, scale=3, origin=(0,0))
-    poweredby.appear(speed=.15)
+    poweredby.appear(speed=0.025)
     poweredby.fade_out(delay=5, duration=1, curve=curve.linear)
 
     ControlHelp.appear(speed=.01)
@@ -324,7 +280,6 @@ def start_single_game(advanced=not debug):
     
     destroy(single_start_button)
     destroy(exit_button)
-    destroy(open_website_button)
     destroy(logo)
     destroy(pre_multiplayer_button)
     destroy(seed_input_field)
@@ -332,10 +287,6 @@ def start_single_game(advanced=not debug):
 
     menu_music.stop(destroy=True)
     game_going = True
-
-
-def open_website():
-    webopen("https://tt0tem4ik22.itch.io/", new=2)
 
 
 def pre_multiplayer_game():
@@ -349,12 +300,7 @@ def close_game():
     quit()
 
 
-
-terrain_width = 1
-
-HB = HealthBar(max_value=20,value=20,name="HP",parent=camera.ui,origin=(0,0),position=(0,-0.45), visible=False)
-
-controls = f"""W: Go front 
+controls_text = f"""W: Go front 
 A: Go left
 S: Go backward
 D: Go Right
@@ -368,7 +314,7 @@ Space: jump
 {SAVE_COORD}: save player position and rotation (not saving world)
 {LOAD_COORD}: load player position
 
-{RTP}: random teleportation from 0 to {0} for x and z
+{RTP}: random teleportation from 0 to {generation.terrain_width} for x and z
 
 {NOCLIP}: Noclip toggle
 
@@ -382,7 +328,9 @@ Space: jump
 
 {PLANT_TREE}: plant tree
 
-{SHOW_CONTROLS}: Open this text again""".format(terrain_width)
+{SHOW_CONTROLS}: Open this text again"""
+
+HB = UI.HB
 
 #Menu.InitMainMenu()
 
@@ -409,16 +357,6 @@ exit_button = Button(
     scale = (0.4, 0.1),
     origin_y = 1.4,
     on_click = close_game
-    )
-
-open_website_button = Button(
-    text="Open my itch.io",
-    color = color.hex("#808080"),
-    highlight_color = color.hex("#666666"),
-    scale = (0.4, 0.1),
-    origin_y = 4,
-    origin_x = 1.85,
-    on_click = open_website
     )
 
 pre_multiplayer_button = Button(
