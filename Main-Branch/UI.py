@@ -1,46 +1,8 @@
 from ursina import Text, InputField, Button, color, camera, Entity, Vec2, Vec3
 from ursina.prefabs.health_bar import HealthBar
-from ProjectResources import sword_model, models_texture, nunito, blocks_textures
+
+from ProjectResources import models_texture, nunito, blocks_textures
 from ProjectVariables import current_texture
-
-
-class Menu:
-    def InitMainMenu():
-        seed_text = Text("Input seed\nSingleplayer only", parent=camera.ui, font=nunito, color=color.white, scale=1, origin=(0, 2), position=(.5, .26))
-        seed_input_field = InputField(
-            y=.1,
-            x=.5,
-            limit_content_to="0123456789",
-            max_lines=1
-            )
-
-        single_start_button = Button(
-            text="Start Singleplayer Game",
-            color = color.hex("#808080"),
-            highlight_color = color.hex("#666666"),
-            scale=(0.4, 0.1),
-            origin_y = -1,
-            on_click = start_single_game
-            )
-
-        exit_button = Button(
-            text="Exit",
-            color = color.hex("#808080"),
-            highlight_color = color.hex("#666666"),
-            scale = (0.4, 0.1),
-            origin_y = 1.4,
-            on_click = close_game
-            )
-
-        pre_multiplayer_button = Button(
-            text="Start Multiplayer Game",
-            color = color.hex("#808080"),
-            highlight_color = color.hex("#666666"),
-            scale = (0.4, 0.1),
-            origin_y = 0.2, 
-            on_click = pre_multiplayer_game
-            )
-        logo = Text("Cave Game", parent=camera.ui, font=nunito, color=color.white, scale=5, origin=(0, -2))
 
 
 class Hand(Entity):
@@ -56,17 +18,18 @@ class Hand(Entity):
 
 
 class CurrentBlock(Entity):
-    def __init__(self, texture):
+    def __init__(self):
         super().__init__(
                 parent=camera.ui, 
                 model="quad",
                 scale=(0.1,0.1),
                 color=color.rgb(230,230,230),
-                texture=texture,
+                texture=blocks_textures[current_texture],
                 position=Vec2(-0.75, -0.35)
             ) 
     def update(self):
-        global current_texture
-        self.texture = current_texture
-
-HB = HealthBar(max_value=20,value=20,name="HP",parent=camera.ui,origin=(0,0),position=(0,-0.45), visible=False)
+        self.texture = blocks_texture[current_texture]
+    
+    
+def initHB(max_value, init_value):
+    HB = HealthBar(max_value=max_value,value=init_value,parent=camera.ui,origin=(0,0),position=(0,-0.45), visible=True)

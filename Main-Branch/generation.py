@@ -2,63 +2,63 @@ from numpy import floor
 from perlin_noise import PerlinNoise
 from random import randint as rni, choice, seed as sd
 
-output = []
 
 start_player_y = 7
 terrain_width = 1
 
 def createTree(pos, type):
-    global output
+    output = []
     if type in ["oak", "birch"]:
         for i in range(5):
-            output.append([[pos[0], pos[1]+i+1, pos[2], f"{type} vertical"]])
+            output.append([int(pos[0]), int(pos[1]+i+1), int(pos[2]), f"{type} vertical"])
         
-        output.append([[pos[0], pos[1]+6, pos[2], f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+7, pos[2], f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+7, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+7, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+6, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+5, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+4, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+6, pos[2]-2, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+5, pos[2]-2, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+4, pos[2]-2, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+6, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+5, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+4, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+6, pos[2]+2, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+5, pos[2]+2, f"{type} leaves"]])
-        output.append([[pos[0], pos[1]+4, pos[2]+2, f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+7, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+7, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+6, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+5, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+4, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]-2, pos[1]+6, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]-2, pos[1]+5, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]-2, pos[1]+4, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+6, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+5, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+4, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]+2, pos[1]+6, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]+2, pos[1]+5, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]+2, pos[1]+4, pos[2], f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+4, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+5, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+6, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+4, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+5, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0]+1, pos[1]+6, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+4, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+5, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+6, pos[2]+1, f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+4, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+5, pos[2]-1, f"{type} leaves"]])
-        output.append([[pos[0]-1, pos[1]+6, pos[2]-1, f"{type} leaves"]])
+        output.append([int(pos[0]), int(pos[1]+6), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+7), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+7), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+7), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+6), int(pos[2]-1), f"{type} leaves"])        
+        output.append([int(pos[0]), int(pos[1]+5), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+4), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+6), int(pos[2]-2), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+5), int(pos[2]-2), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+4), int(pos[2]-2), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+6), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+5), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+4), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+6), int(pos[2]+2), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+5), int(pos[2]+2), f"{type} leaves"])
+        output.append([int(pos[0]), int(pos[1]+4), int(pos[2]+2), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+7), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+7), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+6), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+5), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+4), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]-2), int(pos[1]+6), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]-2), int(pos[1]+5), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]-2), int(pos[1]+4), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+6), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+5), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+4), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]+2), int(pos[1]+6), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]+2), int(pos[1]+5), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]+2), int(pos[1]+4), int(pos[2]), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+4), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+5), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+6), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+4), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+5), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]+1), int(pos[1]+6), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+4), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+5), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+6), int(pos[2]+1), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+4), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+5), int(pos[2]-1), f"{type} leaves"])
+        output.append([int(pos[0]-1), int(pos[1]+6), int(pos[2]-1), f"{type} leaves"])
+    return output
 
 
-def genTerrain(seed, advanced, terrain_width=terrain_width, octaves=2, amplitude=6, period=48):
-    global output
+def GenTerrain(advanced, seed, octaves, amplitude, period, ores, trees, terrain_width):
+    output = []
     
     if advanced:
         octaves = octaves
@@ -80,64 +80,73 @@ def genTerrain(seed, advanced, terrain_width=terrain_width, octaves=2, amplitude
                 output.append([x, y-i-1, z, "dirt"])
 
             for j in range(100):
-                if y != 0:
-                    sd(int(seed//y-x**z+j**4))
+                if ores == "Enabled":
+                    if y != 0:
+                        sd(int(seed//y-x**z+j**4))
+                    else:
+                        sd(int(seed**0.5-x**z+j**4))
+                    block = rni(0,1000)
+                    if j <= 50:
+                        if block <= 820:
+                            output.append([x, y-5-j, z, "stone"])
+                        if block > 820 and block <= 860:
+                            output.append([x, y-5-j, z, "copper ore"])
+                        if block > 860 and block <= 900:
+                            output.append([x, y-5-j, z, "coal ore"])
+                        if block > 900 and block <= 935:
+                            output.append([x, y-5-j, z, "iron ore"])
+                        if block > 935 and block <= 955:
+                            output.append([x, y-5-j, z, "gold ore"])
+                        if block > 955 and block <= 975:
+                           output.append([x, y-5-j, z, "redstone ore"])
+                        if block > 975 and block <= 990:
+                            output.append([x, y-5-j, z, "lapis ore"])
+                        if block > 990 and block <= 995:
+                            output.append([x, y-5-j, z, "emerald ore"])
+                        if block > 995 and block <= 1000:
+                            output.append([x, y-5-j, z, "diamond ore"])
+                    elif j > 50:
+                        if block <= 820:
+                            output.append([x, y-5-j, z, "deepslate"])
+                        if block > 820 and block <= 860:
+                            output.append([x, y-5-j, z, "deepslate copper ore"])
+                        if block > 860 and block <= 900:
+                            output.append([x, y-5-j, z, "deepslate coal ore"])
+                        if block > 900 and block <= 935:
+                            output.append([x, y-5-j, z, "deepslate iron ore"])
+                        if block > 935 and block <= 955:
+                            output.append([x, y-5-j, z, "deepslate gold ore"])
+                        if block > 955 and block <= 975:
+                           output.append([x, y-5-j, z, "deepslate redstone ore"])
+                        if block > 975 and block <= 990:
+                            output.append([x, y-5-j, z, "deepslate lapis ore"])
+                        if block > 990 and block <= 995:
+                            output.append([x, y-5-j, z, "deepslate emerald ore"])
+                        if block > 995 and block <= 1000:
+                            output.append([x, y-5-j, z, "deepslate diamond ore"])
+                    if z != -1 and x != 0:
+                        sd(seed//x**z)
+                    else:
+                        sd(seed+x**2+z**2)
                 else:
-                    sd(int(seed**0.5-x**z+j**4))
-                block = rni(0,1000)
-                print(block)
-                if j <= 50:
-                    if block <= 820:
+                    if j <= 50:
                         output.append([x, y-5-j, z, "stone"])
-                    if block > 820 and block <= 860:
-                        output.append([x, y-5-j, z, "copper ore"])
-                    if block > 860 and block <= 900:
-                        output.append([x, y-5-j, z, "coal ore"])
-                    if block > 900 and block <= 935:
-                        output.append([x, y-5-j, z, "iron ore"])
-                    if block > 935 and block <= 955:
-                        output.append([x, y-5-j, z, "gold ore"])
-                    if block > 955 and block <= 975:
-                       output.append([x, y-5-j, z, "redstone ore"])
-                    if block > 975 and block <= 990:
-                        output.append([x, y-5-j, z, "lapis ore"])
-                    if block > 990 and block <= 995:
-                        output.append([x, y-5-j, z, "emerald ore"])
-                    if block > 995 and block <= 1000:
-                        output.append([x, y-5-j, z, "diamond ore"])
-                elif j > 50:
-                    if block <= 820:
+                    elif j > 50:
                         output.append([x, y-5-j, z, "deepslate"])
-                    if block > 820 and block <= 860:
-                        output.append([x, y-5-j, z, "deepslate copper ore"])
-                    if block > 860 and block <= 900:
-                        output.append([x, y-5-j, z, "deepslate coal ore"])
-                    if block > 900 and block <= 935:
-                        output.append([x, y-5-j, z, "deepslate iron ore"])
-                    if block > 935 and block <= 955:
-                        output.append([x, y-5-j, z, "deepslate gold ore"])
-                    if block > 955 and block <= 975:
-                       output.append([x, y-5-j, z, "deepslate redstone ore"])
-                    if block > 975 and block <= 990:
-                        output.append([x, y-5-j, z, "deepslate lapis ore"])
-                    if block > 990 and block <= 995:
-                        output.append([x, y-5-j, z, "deepslate emerald ore"])
-                    if block > 995 and block <= 1000:
-                        output.append([x, y-5-j, z, "deepslate diamond ore"])
+                
 
             output.append([x, y-105, z, "bedrock"])
-
-            sd(x**z//seed)
-
-            if rni(1,256) == 4:
+            if rni(1,256) == 4 and trees == "Enabled":
+                sd(x*z+seed)
                 trees = ["oak", "birch"]
                 tree = choice(trees)
-                createTree((x,y+7,z), tree)
+                for block in createTree((x,y,z), tree):
+                    output.append(block)
 
             sd()
     else:
-        for x in range(terrain_width):
-            for z in range(terrain_width):
-                output.append([x, 0, z, "grass"])
+        for x in range(17):
+            for z in range(17):
+                output.append([x, 0, z, "stone"])
 
     return output
