@@ -58,6 +58,8 @@ def createTree(pos, type):
 
 
 def GenTerrain(advanced, seed, octaves, amplitude, period, ores, trees, terrain_width, gen_only_terrain):
+    if terrain_width > 64:
+        terrain_width = 64 # now Voxel class is too unoptimised to make bigger worlds
     output = []
     
     if advanced == "Enabled":
