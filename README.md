@@ -1,6 +1,5 @@
 # Cave Game
 ## A clone of Minecraft made by TT0tem4ik22 on python with using [ursina engine](https://github.com/pokepetter/ursina)
-(README is being made right now, please wait)
 ### Installation
 Download the script with using command ```$ git clone https://github.com/tt0tem4ik22-archuser/Cave-Game```<br>
 Enter script folder with using command ```$ cd path/to/project/Cave-Game/```
