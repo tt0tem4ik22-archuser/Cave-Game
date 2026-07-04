@@ -32,7 +32,7 @@ use ```python3 singleplayer.py argv3 argv4 argv5 argv6 argv7 argv8 argv9 argv10 
 | 10 | World width | 16 | Not required if №3 is *Disabled* |
 | 11 | Toggle generate only terrain | *Enabled* or *Disabled* | Not required if №3 is *Disabled* |
 ---
-use ```python3 client.py ip port``` to start server <br>
+use ```python3 client.py ip port``` to start client and join to server <br>
 
 ### Task list
 - [ ] Fully migrate all features from the Old Branch to the new Singleplayer.
