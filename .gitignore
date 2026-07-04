@@ -1,7 +1,3 @@
-run
 models_compressed
 *.pyc
-Main-Branch/run
-Main-Branch/__pycache__/generation.cpython-314.pyc
-Main-Branch/__pycache__/inventory.cpython-314.pyc
-Main-Branch/__pycache__/ProjectResources.cpython-314.pyc
+TEMP

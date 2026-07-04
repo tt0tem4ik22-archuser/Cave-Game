@@ -47,3 +47,4 @@ use ```python3 client.py ip port``` to start client and join to server <br>
 - [ ] Make my own sounds
 - [ ] Make my own font
 - [x] Make my own models
+- [ ] Refactor the project structure to ensure everything is independent.
