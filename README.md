@@ -4,9 +4,8 @@
 ### Installation
 
 ### Usage
-```python3 main.py``` to open main menu <br>
-```python3 server.py argv1 argv2 argv3 argv4 argv5 argv6 argv7 argv8 argv9 argv10 argv11``` to start server
-Every arguement **is required**
+use ```python3 main.py``` to open main menu <br>
+use ```python3 server.py argv1 argv2 argv3 argv4 argv5 argv6 argv7 argv8 argv9 argv10 argv11``` to start server <br>
 | Argument № | Description | Example | note |
 | --- | --- | --- | --- |
 | 1 | ip of server | 127.0.0.1 | |
