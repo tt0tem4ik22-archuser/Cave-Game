@@ -17,10 +17,11 @@ If you activated venv then use command```python -m pip install -r requirements.t
 ### Usage
 use ```python3 main.py``` to open main menu <br>
 use ```python3 server.py argv1 argv2 argv3 argv4 argv5 argv6 argv7 argv8 argv9 argv10 argv11``` to start server <br>
+use ```python3 singleplayer.py argv3 argv4 argv5 argv6 argv7 argv8 argv9 argv10 argv11``` to start server <br>
 | Argument № | Description | Example | note |
 | --- | --- | --- | --- |
-| 1 | ip of server | 127.0.0.1 | |
-| 2 | port of server | 8888 | |
+| 1 | ip of server | 127.0.0.1 | Multiplayer only |
+| 2 | port of server | 8888 | Multiplayer only |
 | 3 | Toggle Advanced generation | *Enabled* or *Disabled* | |
 | 4 | World seed | 1234567890 | Not required if №3 is *Disabled* |
 | 5 | Perlin noise octaves | 2 | Not required if №3 is *Disabled* |
@@ -30,6 +31,7 @@ use ```python3 server.py argv1 argv2 argv3 argv4 argv5 argv6 argv7 argv8 argv9 a
 | 9 | Toggle generate trees | *Enabled* or *Disabled* | Not required if №3 is *Disabled* |
 | 10 | World width | 16 | Not required if №3 is *Disabled* |
 | 11 | Toggle generate only terrain | *Enabled* or *Disabled* | Not required if №3 is *Disabled* |
+use ```python3 client.py ip port``` to start server <br>
 
 ### Task list
 - [ ] Fully migrate all features from the Old Branch to the new Singleplayer.
