@@ -48,3 +48,8 @@ use ```python3 client.py ip port``` to start client and join to server <br>
 - [ ] Make my own font
 - [x] Make my own models
 - [ ] Refactor the project structure to ensure everything is independent.
+- [x] Write the README.md
+
+### Main task list
+- [ ] Write my own engine (maybe on c++)
+- [ ] Rewrite game in new engine
