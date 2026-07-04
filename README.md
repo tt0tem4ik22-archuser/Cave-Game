@@ -39,3 +39,4 @@ use ```python3 server.py argv1 argv2 argv3 argv4 argv5 argv6 argv7 argv8 argv9 a
 - [ ] Find a better class for Voxel than [Entity](https://github.com/pokepetter/ursina/blob/master/ursina/entity.py), because [Entity](https://github.com/pokepetter/ursina/blob/master/ursina/entity.py) is not optimized
 - [ ] Add mobs
 - [ ] Add survival mode
+- [ ] Sort out the shit I wrote
