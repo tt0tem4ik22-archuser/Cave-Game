@@ -12,6 +12,7 @@ Activate it on MacOS/Linus: ```$ source *name*/bin/activate```<br>
 Deactivate it with ```$ deactivate```
 
 #### Installing requirements 
+If you activated venv then use command```python -m pip install -r requirements.txt```
 
 ### Usage
 use ```python3 main.py``` to open main menu <br>
