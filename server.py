@@ -83,21 +83,22 @@ def ask_terrain_width(client):
 if argv[3] == "Disabled":
     adv = False
     terrain_width = 17
+    world = GenTerrain("Disabled", 1, 1, 1, 1, "Disabled", "Disabled", 1, "Disabled")
 else:
     adv = True
     terrain_width = int(argv[10])
 
-if argv[8] == "Disabled":
-    ores = False
-else:
-    ores = True
+    if argv[8] == "Disabled":
+        ores = False
+    else:
+        ores = True
 
-if argv[9] == "Disabled":
-    trees = False
-else:
-    trees = True
+    if argv[9] == "Disabled":
+        trees = False
+    else:
+        trees = True
 
-world = GenTerrain(adv, int(argv[4]), int(argv[5]), int(argv[6]), int(argv[7]), ores, trees, terrain_width, argv[11])
+    world = GenTerrain("Enabled", int(argv[4]), int(argv[5]), int(argv[6]), int(argv[7]), ores, trees, terrain_width, argv[11])
 
 for voxel in world:
     spawn_voxel(voxel[3], voxel[0], voxel[1], voxel[2], source='server')
