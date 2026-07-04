@@ -33,10 +33,16 @@ playerRepresent = PlayerRepresentation()
 
 playerRepresent.visible = False
 
-seed = int(argv[2])
-world_size = int(argv[8])
 
-world = GenTerrain(argv[1], seed, int(argv[3]), int(argv[4]) ,int(argv[5]), argv[6], argv[7], world_size, argv[9])
+
+if argv[1] == "Enabled":
+    world = GenTerrain(argv[1], seed, int(argv[3]), int(argv[4]) ,int(argv[5]), argv[6], argv[7], world_size, argv[9])
+    seed = int(argv[2])
+    world_size = int(argv[8])
+else:
+    world = GenTerrain("Disabled", 1, 1, 1, 1, "Disabled", "Disabled", 1, "Disabled")
+    seed = 0
+    world_size = 17
 
 for voxel in world:
     vox=Voxel(position=(voxel[0], voxel[1], voxel[2]), init_texture=voxel[3], client="Generation")

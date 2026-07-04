@@ -43,3 +43,7 @@ use ```python3 client.py ip port``` to start client and join to server <br>
 - [ ] Add mobs
 - [ ] Add survival mode
 - [ ] Sort out the shit I wrote
+- [ ] Paint my own textures
+- [ ] Make my own sounds
+- [ ] Make my own font
+- [x] Make my own models
